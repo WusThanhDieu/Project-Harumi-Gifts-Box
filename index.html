@@ -68,7 +68,11 @@
               "MuaDongTokyo",
               "Liam"
             ],
-            "music": "//https://nhatlinh04.github.io/to_tinh_niu/Ni%20Ny%20C%20Anh%20Lyrics%20Video.mp3"
+              <audio id="myAudio" autoplay loop>
+    <source src="nhac.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+      </audio>
+      </body>
           },
           "clientId": "/"
         },
@@ -82,5 +86,13 @@
   </div>
   <script type="module" src="/static/js/app.js"></script>
   <script type="module" src="/static/js/home.js"></script>
-  </body>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const audio = document.getElementById('myAudio');
+      document.body.addEventListener('click', function () {
+        audio.play();
+      }, { once: true });
+    });
+  </script>
+</body>
 </html>
