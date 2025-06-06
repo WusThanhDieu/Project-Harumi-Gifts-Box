@@ -1,86 +1,124 @@
-<!-- Clone by @WusThanhDieu -->
-<!DOCTYPE html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Github WusThanhDieu</title>
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
-    <link rel="stylesheet" href="/static/css/app.css" />
-  </head>
-  <body class="font-sans antialiased">
-    <div
-      id="app"
-      data-page='{
-        "component": "views/home",
-        "props": {
-          "errors": {},
-          "name": "Github WusThanhDieu",
-          "quote": {
-            "message": "",
-            "author": ""
-          },
-          "auth": {
-            "user": null
-          },
-          "ziggy": {
-            "port": null,
-            "defaults": [],
-            "routes": {
-              "home": {
-                "uri": "/",
-                "methods": ["GET", "HEAD"]
-              },
-              "show-create-form": {
-                "uri": "create-message/{id?}",
-                "methods": ["GET", "HEAD"],
-                "parameters": ["id"]
-              },
-              "create-form": {
-                "uri": "create-message",
-                "methods": ["POST"]
-              },
-              "login": {
-                "uri": "login",
-                "methods": ["GET", "HEAD"]
-              },
-              "logout": {
-                "uri": "logout",
-                "methods": ["POST"]
-              },
-              "storage.local": {
-                "uri": "storage/{path}",
-                "methods": ["GET", "HEAD"],
-                "wheres": {
-                  "path": ".*"
-                },
-                "parameters": ["path"]
-              }
-            },
-            "location": ""
-          },
-          "message": "",
-          "client": {
-            "fontName": "Mali",
-            "color": "#ff0019",
-            "messages": [
-              "Github WusThanhDieu",
-              "Test 1",
-              "Test 2"
-            ],
-            "music": "//thanhdieu.com/music.mp3"
-          },
-          "clientId": "/"
-        },
-        "url": "/",
-        "version": "",
-        "clearHistory": false,
-        "encryptHistory": false
+!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tỏ Tình</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .falling-text {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 24px;
+      animation: fall linear;
+      color: #ffccff;
+      text-shadow: 0 0 10px #ff66ff, 0 0 20px #ff99ff;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -50px;
+        opacity: 1;
       }
-      '
-    >
-  </div>
-  <script type="module" src="/static/js/app.js"></script>
-  <script type="module" src="/static/js/home.js"></script>
-  </body>
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<script>
+  // Câu tỏ tình
+  const messages = [
+    quamg hoa
+    taolanqh
+    nguyen quang hoa
+    nguyen quang hoa dep trai
+  ];
+
+  // Tạo sao lung linh
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let stars = [];
+  for (let i = 0; i < 200; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5,
+      d: Math.random() * 1
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    ctx.shadowBlur = 5;
+    ctx.shadowColor = 'white';
+    for (let i = 0; i < stars.length; i++) {
+      let s = stars[i];
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+      ctx.fill();
+    }
+    updateStars();
+  }
+
+  function updateStars() {
+    for (let i = 0; i < stars.length; i++) {
+      stars[i].y += stars[i].d;
+      if (stars[i].y > canvas.height) {
+        stars[i].y = 0;
+        stars[i].x = Math.random() * canvas.width;
+      }
+    }
+  }
+
+  function animateStars() {
+    drawStars();
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  // Tạo hiệu ứng chữ rơi
+  function createFallingText(text) {
+    const div = document.createElement('div');
+    div.className = 'falling-text';
+    div.innerText = text;
+    div.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+    div.style.animationDuration = (3 + Math.random() * 3) + 's';
+    document.body.appendChild(div);
+
+    setTimeout(() => {
+      div.remove();
+    }, 6000);
+  }
+
+  // Hiển thị chữ rơi ngẫu nhiên liên tục
+  setInterval(() => {
+    const text = messages[Math.floor(Math.random() * messages.length)];
+    createFallingText(text);
+  }, 1500);
+</script>
+
+</body>
 </html>
